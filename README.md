@@ -57,10 +57,11 @@ Create a new iOS App project named **Steady** (SwiftUI, iOS 17). Then:
 ## Consent and data handling
 
 - **Camera:** iOS asks for permission, and Steady shows its own consent screen before the camera ever starts. The camera runs only during check-in and breathing. It stops when you finish, tap Stop, or leave the app. Steady never monitors in the background.
-- **Storage:** none. No video, images or vital signs are written to disk. Readings sit in a short rolling buffer in memory, and **Done** clears it. The only things kept in `UserDefaults` are your two consent toggles.
+- **Storage:** none. No video, images or vital signs are written to disk. Readings sit in a short rolling buffer in memory, and **Done** clears it. The only things kept in `UserDefaults` are your two consent toggles and the preview setting.
+- **Hide my camera preview:** optional. The SDK still measures, but your face is never drawn on screen, which also keeps it out of screenshots and screen recordings.
 - **Sharing:** Steady has no backend, analytics or AI service. The SmartSpectra SDK talks to Presage's servers using the app's API key (authentication and SDK operation).
 - **SDK telemetry:** **off by default.** If you turn on "Share SDK diagnostics", the SDK sends session summaries and device-readiness reports to Presage: device model, OS, performance and quality counts. Per [Presage's telemetry docs](https://smartspectra.presagetech.com/docs/telemetry-and-privacy), these contain no raw video frames and no measured vital-sign values. They are authenticated, so they are not anonymous, and Presage's policies govern how long they're kept.
-- **Retention and deletion:** nothing to delete on Steady's side. Delete the app to clear the consent toggles.
+- **Retention and deletion:** nothing to delete on Steady's side. Delete the app to clear these settings.
 - **Limits:** wellness estimates only. No diagnosis, treatment or medical decision-making.
 
 ## Project layout

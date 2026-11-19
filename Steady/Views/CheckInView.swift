@@ -106,10 +106,20 @@ struct CheckInView: View {
 /// Small circular self-view from the SDK's image output, so people can frame their face.
 struct CameraBubble: View {
     private let sdk = SmartSpectraSDK.shared
+    /// Privacy option: the SDK keeps measuring, but the self-view isn't drawn.
+    @AppStorage(ConsentKeys.hidePreview) private var hidePreview = false
     var body: some View {
         ZStack {
             Circle().fill(Color.white.opacity(0.06))
-            if let image = sdk.imageOutput {
+            if hidePreview {
+                VStack(spacing: 6) {
+                    Image(systemName: "eye.slash")
+                        .font(.system(size: 40))
+                    Text("Preview hidden")
+                        .font(.caption.weight(.semibold))
+                }
+                .foregroundStyle(.white.opacity(0.55))
+            } else if let image = sdk.imageOutput {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)

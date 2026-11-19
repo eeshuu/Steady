@@ -102,6 +102,12 @@ struct RootView: View {
         // bad key) left every later check-in silently waiting on a camera that
         // never started.
         guard sdk.processingStatus == .idle || sdk.processingStatus == .error else { return }
+        // Without a real key the SDK only fails later with a vague server error.
+        let key = Secrets.presageAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !key.isEmpty, key != "YOUR_API_KEY" else {
+            startError = "No Presage API key. Paste your key into Steady/App/Secrets.swift and rebuild."
+            return
+        }
         do {
             // Explicit front camera: the SDK's default falls back to any camera,
             // and Steady promises the person it reads them through the front one.

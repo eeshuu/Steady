@@ -9,6 +9,7 @@ struct ConsentView: View {
 
     @AppStorage(ConsentKeys.camera) private var hasCameraConsent = false
     @AppStorage(ConsentKeys.telemetry) private var shareDiagnostics = false
+    @AppStorage(ConsentKeys.hidePreview) private var hidePreview = false
     @State private var cameraDenied = false
 
     var body: some View {
@@ -48,6 +49,15 @@ struct ConsentView: View {
                 .onChange(of: shareDiagnostics) { _, on in
                     SmartSpectraSDK.shared.config.enableTelemetry = on
                 }
+
+                Toggle(isOn: $hidePreview) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Hide my camera preview").font(.subheadline.weight(.semibold))
+                        Text("The camera still reads your pulse and breathing, but your face isn't shown on screen. Handy for screen recordings.")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    }
+                }
+                .tint(.teal)
 
                 Toggle(isOn: $hasCameraConsent) {
                     Text("I understand and agree to use the camera for this session.")

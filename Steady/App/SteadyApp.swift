@@ -25,4 +25,5 @@ struct SteadyApp: App {
 enum ConsentKeys {
     static let camera = "steady.consent.camera.v1"
     static let telemetry = "steady.consent.telemetry.v1"
+    static let hidePreview = "steady.privacy.hidePreview.v1"
 }
